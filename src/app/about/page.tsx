@@ -133,10 +133,10 @@ const projects = [
     href: "/projects/alpha",
   },
   {
-    title: "Project Beta",
+    title: "Zenday",
     description:
-      "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.",
-    href: "#",
+      "A minimal daily zen quote app that consumes an API to surface a new piece of wisdom each day.",
+    href: "https://zenday-brown.vercel.app/",
   },
   {
     title: "Project Gamma",
