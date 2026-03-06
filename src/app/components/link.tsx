@@ -8,7 +8,6 @@ export const Link = ({
   onClick,
   ...rest
 }: React.ComponentProps<typeof NextLink>) => {
-
   const isExternalLink =
     typeof href === "string" &&
     (href.startsWith("http://") ||

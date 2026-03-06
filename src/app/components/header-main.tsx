@@ -39,9 +39,9 @@ export const HeaderMain = () => {
 
   return (
     <div className="relative bg-lightgrey px-4">
-      <div className="flex items-center justify-between gap-4 py-1 md:py-5">
+      <div className="flex items-center justify-between gap-4 py-1 md:py-2">
         <Link href="/" aria-label="Go to home">
-          <Logo className="shrink-0" width="109" height="27" />
+          <Logo className="shrink-0" width="220" height="155" />
         </Link>
         <div className="flex items-center justify-between gap-4">
           {!isMobileOrTablet && <NavigationDesktop />}

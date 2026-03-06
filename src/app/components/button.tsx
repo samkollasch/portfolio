@@ -9,6 +9,8 @@ import { AIIconBlack } from "./icons/ai-icon-black";
 import { AIIconWhite } from "./icons/ai-icon-white";
 import { UserIconBlack } from "./icons/user-icon-black";
 import { UserIconWhite } from "./icons/user-icon-white";
+import { DownloadIconWhite } from "./icons/download";
+import { DownloadIconBlack } from "./icons/download-black";
 
 const button = tv({
   base: "button-base min-w-fit cursor-pointer rounded-full font-london tracking-[-0.36px] normal-case no-underline transition-all duration-500", // editorconfig-checker-disable-line
@@ -21,7 +23,7 @@ const button = tv({
       purple:
         "bg-secondarypurple px-[20px] py-[16px] text-lg/[.88] text-white hover:bg-black",
       green:
-        "bg-primarygreen px-[20px] py-[16px] text-lg/[.88] text-white hover:bg-black",
+        "group bg-primarygreen px-[20px] py-[16px] text-lg/[.88] text-white hover:bg-black",
       white:
         "group bg-white p-[8px] pl-[20px] text-lg/[.88] text-black hover:bg-primarygreen hover:text-white hover:[&_.ai-icon]:bg-white hover:[&_.ai-green]:flex hover:[&_.ai-white]:hidden",
     },
@@ -179,6 +181,32 @@ function IconDisplay(buttonIconStyle: string, variant: string) {
       );
     }
 
+    case "download": {
+      if (variant === "purple" || variant === "green") {
+        return (
+          <>
+            <DownloadIconBlack
+              width={24}
+              height={24}
+              className={`ai-white group-hover:hidden ${iconSizeClass}`}
+            />
+            <DownloadIconWhite
+              width={24}
+              height={24}
+              className={`hidden group-hover:block ${iconSizeClass}`}
+            />
+          </>
+        );
+      }
+      return (
+        <DownloadIconWhite
+          width={24}
+          height={24}
+          className={twMerge("ai-white", iconSizeClass)}
+        />
+      );
+    }
+
     default:
       return (
         <PlayIconWhite
@@ -213,7 +241,8 @@ const Button = <T extends ElementType = "button">({
   const Component = as ?? "button";
   const cleanVariant = variant ?? "";
   const isLinkArrow = cleanVariant in (linkButton.variants?.variant ?? {});
-  const noIcon = cleanVariant === "purple" || cleanVariant === "green";
+  const noIcon =
+    (cleanVariant === "purple" || cleanVariant === "green") && !buttonIconStyle;
 
   const iconContainer = isLinkArrow ? (
     cleanVariant === "linkArrowWhite" ? (
@@ -224,7 +253,10 @@ const Button = <T extends ElementType = "button">({
   ) : !noIcon ? (
     <div
       className={twMerge(
-        `bg-primarygreen p-3 ai-icon transition-background-color flex h-[40px] w-[40px] items-center justify-center rounded-full duration-500 md:h-[46px] md:w-[46px] xl:h-[46px] xl:w-[46px]`,
+        `p-3 ai-icon transition-background-color flex h-[40px] w-[40px] items-center justify-center rounded-full duration-500 md:h-[46px] md:w-[46px] xl:h-[46px] xl:w-[46px]`,
+        cleanVariant === "green" || cleanVariant === "purple"
+          ? "bg-white group-hover:bg-primarygreen"
+          : "bg-primarygreen",
       )}
     >
       {IconDisplay(buttonIconStyle ?? "play", cleanVariant)}
@@ -233,7 +265,15 @@ const Button = <T extends ElementType = "button">({
 
   return (
     <Component
-      className={combinedButton({ variant, className })}
+      className={combinedButton({
+        variant,
+        className: twMerge(
+          (cleanVariant === "green" || cleanVariant === "purple") &&
+            !noIcon &&
+            "p-[8px] pl-[20px]",
+          className,
+        ),
+      })}
       onClick={() => {
         if (onClick) {
           onClick();
