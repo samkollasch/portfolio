@@ -3,13 +3,23 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --lightgrey: oklch(96.42% 0 0);
+  --primarygreen: oklch(59.74% 0.2032 142.5);
+  --tintgreen: oklch(91.86% 0.058 145.09);
+  --secondarypurple: oklch(62.2% 0.194 291.69);
+  --navigation-description: oklch(62.01% 0 0);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-london: var(--font-london);
+  --font-new-york: var(--font-new-york);
+  --color-lightgrey: var(--lightgrey);
+  --color-primarygreen: var(--primarygreen);
+  --color-tintgreen: var(--tintgreen);
+  --color-secondarypurple: var(--secondarypurple);
+  --color-navigation-description: var(--navigation-description);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -23,4 +33,101 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer base {
+  .emblaHorizontal {
+    max-width: 1120px;
+    margin: 0;
+    --slide-height: 409px;
+    --slide-spacing: 0;
+    --slide-size: 100%;
+  }
+
+  .emblaHorizontal__viewport {
+    overflow: hidden;
+  }
+
+  .emblaHorizontal__container {
+    backface-visibility: hidden;
+    display: flex;
+    touch-action: pan-y pinch-zoom;
+    margin-left: calc(var(--slide-spacing) * -1);
+  }
+
+  .emblaHorizontal__slide {
+    transform: translate3d(0, 0, 0);
+    flex: 0 0 var(--slide-size);
+    min-width: 0;
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .emblaHorizontal__controls {
+    display: grid;
+    justify-content: center;
+    gap: 1.2rem;
+    align-items: center;
+    padding-left: 25px;
+  }
+
+  .emblaHorizontal__buttons {
+    display: grid;
+    gap: 0.6rem;
+    align-items: center;
+  }
+
+  .emblaHorizontal__button {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.5);
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: white;
+    touch-action: manipulation;
+    display: inline-flex;
+    text-decoration: none;
+    cursor: pointer;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    width: 3.6rem;
+    height: 3.6rem;
+    z-index: 1;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: solid 1px white;
+  }
+
+  .emblaHorizontal__button:hover {
+    border: solid 1px var(--primarygreen);
+  }
+
+  .emblaHorizontal__button:disabled {
+    opacity: 0.3;
+  }
+
+  .emblaHorizontal__button__svg {
+    width: 35%;
+    height: 35%;
+  }
+
+  .emblaHorizontal__progress-bar-container {
+    width: 100%;
+    max-width: 800px;
+    height: 4px;
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    margin-top: 20px;
+    overflow: hidden;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .emblaHorizontal__progress-bar {
+    height: 100%;
+    background-color: #009b00;
+    border-radius: 4px;
+    transition: width 0.1s linear;
+  }
 }
